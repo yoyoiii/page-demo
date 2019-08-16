@@ -24,7 +24,7 @@ a, a:hover, a:visited, a:active, a:link, a:focus{
 }
 
 #cover{
-    background: url('http://qiniu.yoyoiii.top/GithubPage/assets/images/cover.jpg') center top no-repeat;
+    background: url('https://qiniu.yoyoiii.top/GithubPage/assets/images/cover.jpg') center top no-repeat;
     background-size: cover;
     background-attachment: scroll;
 }
