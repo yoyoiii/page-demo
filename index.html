@@ -9,13 +9,17 @@
     <title>柚子烧酒</title>
 
     <!--Favicon-->
-    <link rel="icon" href="./images/favicon48x48.ico">
+    <link rel="icon" href="src/images/favicon.ico">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="src/css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+    
+    
 </head>
 <body>
-    <header>
+    <header id="header">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -25,8 +29,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="./index.html" class="navbar-brand nav-logo">
-                        <img src="./images/favicon48x48.ico" alt="logo" width="20" height="20"> 
+                    <a href="index.html" class="navbar-brand nav-logo">
+                        <img src="src/images/favicon.ico" alt="logo" width="20" height="20"> 
                          柚子烧酒
                     </a>
                 </div>
@@ -39,18 +43,15 @@
             </div>
         </nav>
     </header>
-    <section id="cover">
-        <div class="cover-bg">
-            <!-- <div class="portrait-con">
-                <div class="portrait img-circle">
-                    <img src="./images/portrait.jpg" alt="portrait" class="img-circle img-responsive center-block portrait-pic"> 
-                </div>
-                <img src="./images/portrait-border.png" alt="border" class="portrait-border hidden">     
-            </div> -->
-            <!-- <p class="cover-txt">
-                Hello! <br>
-                你来时冬至，但眉上风止，开口是「我来得稍迟」。
-            </p> -->
+    <section id="cover" class="container-fluid">
+        <div class="row cover-bg">
+            <meting-js
+                server="netease"
+                type="playlist"
+                id="60198"
+                theme="#b7ba6b"
+                list-max-height="820px">
+            </meting-js>  
         </div>   
     </section>
     <section id="picsets">
@@ -152,7 +153,10 @@
     </footer>
 
     <script src="./libs/jquery-1.12.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script> 
-    <script src="./js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    <script src="src/js/index.js"></script>
 </body>
 </html>
