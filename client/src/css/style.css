@@ -148,8 +148,10 @@ iframe {
 
 /* 瀑布流布局 */
 #picsets .columns {
-    column-width: 360px;
-    column-gap: 15px;
+    -webkit-columns: 360px 4;
+            columns: 360px 4;
+    -webkit-column-gap: 15px;
+            column-gap: 15px;
     margin: 50px auto 0;
 }
 

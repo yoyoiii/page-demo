@@ -55,31 +55,46 @@ var controller = {
         var $picCon = $("#picsets .columns");
         // 获取图片URL
         $.get({
-            type : "GET",
+            type: "GET",
             contentType: "application/json;charset=UTF-8",
-            url : "http://localhost:8888/pic" + key,
+            url: "http://localhost:8888/pic" + key,
 
-            success : function(data) {
+            success: function(data) {
+                var flag = false;
                 var urls = data;
-                urls.forEach(url => {
-                    var urlBuffer = _this.urlBuffer;
-                    if(urlBuffer.indexOf(url) !== -1) {
-                        $("#more").fadeOut();
-                        return;
-                    } 
-                    urlBuffer.push(url);
-                    // 图片预加载
-                    var img = new Image();  
-                    img.onload = function(){
-                        $picCon.append("<figure><img /></figure>");
-                        $picCon.children("figure:last-child").find("img").attr("src", url).addClass("hvr-grow");
-                        // $picCon.find("figure").fadeIn();
-                    };  
-                    img.onerror = function(err){
-                        console.log(err);
-                    }; 
-                    img.src = url;
-                });
+
+                for(var j=0; j<urls.length; j++) {
+                    // 闭包
+                    setTimeout(appendEle(j), j*100); 
+                } 
+                
+                flag ? $("#more").hide() : null;
+
+                function appendEle(i) {
+                    var url = urls[i];
+                    console.log(i);
+                    return function() {
+                        var urlBuffer = _this.urlBuffer;
+            
+                        if(urlBuffer.indexOf(url) !== -1) {
+                            flag = true;
+                            return;
+                        } 
+                        urlBuffer.push(url);
+                        // 图片预加载
+                        var img = new Image();  
+                        img.onload = function(){
+                            $picCon.append(`<figure style="display:none"><img src=${url}></figure>`);
+                            $picCon.find("img").addClass("hvr-grow");
+                            $picCon.find("figure").fadeIn(1000);
+                        };  
+                        img.onerror = function(err){
+                            console.log(err);
+                        }; 
+                        img.src = url;
+                    }
+                    
+                }
             },
 
             error : function(e){
