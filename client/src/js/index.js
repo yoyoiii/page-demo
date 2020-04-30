@@ -1,14 +1,14 @@
 
 var controller = {
     clientW: null,
-    clienth: null,
+    clientH: null,
     urlBuffer: [],
     $picCon: $("#picsets .columns"),
     
     init: function() {
         var _this = this;
         _this.clientW = document.documentElement.clientWidth || document.body.clientWidth;
-        _this.clienth = document.documentElement.clientHeight || document.body.clientHeight;
+        _this.clientH = document.documentElement.clientHeight || document.body.clientHeight;
         
         _this.preLoadImg();
         _this.firstScreen();
@@ -20,7 +20,7 @@ var controller = {
     firstScreen: function() {
         var _this = this;
         // 设置首页图高度
-        $('.cover-bg').css("height", _this.clienth + "px");  
+        $('.cover-bg').css("height", _this.clientH + "px");  
 
         // 联系信息弹出框
         $('[data-toggle="popover"]').popover({
@@ -44,8 +44,15 @@ var controller = {
         } 
     },
 
-    reqImage: function($picCon, key="") {
+    
+    /**
+     * @description: 
+     * @param {key} 区分首屏加载请求or下划时的图片请求 
+     * @return: 
+     */    
+    reqImage: function(key="") {
         var _this = this;
+        var $picCon = $("#picsets .columns");
         // 获取图片URL
         $.get({
             type : "GET",
@@ -57,7 +64,7 @@ var controller = {
                 urls.forEach(url => {
                     var urlBuffer = _this.urlBuffer;
                     if(urlBuffer.indexOf(url) !== -1) {
-                        $("#more-btn").fadeOut();
+                        $("#more").fadeOut();
                         return;
                     } 
                     urlBuffer.push(url);
@@ -84,16 +91,43 @@ var controller = {
 
     preLoadImg: function() {
         var _this = this;
-        _this.reqImage(_this.$picCon,"?code=0");
-        $("#more-btn").fadeIn();
+        _this.reqImage("?code=1");
+        $("#more").fadeIn();
+    },
+
+    lazyLoad: function($target) {
+        var _this = this;
+        function watchscroll () {
+            var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
+            var windowHeight = window.innerHeight;  // 视窗高度
+            var targetH = $target.offsetTop;
+            if( targetH < windowHeight + scrollHeight ){
+                _this.reqImage();
+            }
+        }
+
+        return watchscroll;  
+        
     },
 
     event: function() {
         var _this = this;
-        $("#more-btn").click(function(){
-            _this.reqImage(_this.$picCon);
-        })
+        var $loadingImg = document.getElementById('more');
 
+        // 节流函数
+        function throttle(fn, threshold) {
+            var prev = Date.now();
+            return function() {
+                var now = Date.now();
+                if(now - prev > threshold) {
+                    prev = now;
+                    fn.apply(this, arguments);
+                }
+            }
+        }
+
+        // 滑动滚轮，图片懒加载
+        window.onscroll = throttle(_this.lazyLoad($loadingImg), 200);
     }
 }
 

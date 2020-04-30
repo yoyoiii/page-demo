@@ -1,3 +1,11 @@
+/*
+ * @Author: Zhang Youyi
+ * @Date: 2020-04-27 17:25:22
+ * @LastEditTime: 2020-04-30 10:15:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \project\repository\page\yoyoiii.github.io\server\server.js
+ */
 
 var express = require('express');
 var app = express();
@@ -11,7 +19,7 @@ var bucketManager = new qiniu.rs.BucketManager(mac, config);
 var publicBucketDomain = 'http://qiniu.yoyoiii.top';
 var bucket = 'store4ue';
 var options = {
-    limit: 3,
+    limit: 10,
     prefix: 'page/photos/',
 };
 
