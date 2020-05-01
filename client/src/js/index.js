@@ -62,39 +62,28 @@ var controller = {
             success: function(data) {
                 var flag = false;
                 var urls = data;
-
-                for(var j=0; j<urls.length; j++) {
-                    // 闭包
-                    setTimeout(appendEle(j), j*100); 
-                } 
-                
-                flag ? $("#more").hide() : null;
-
-                function appendEle(i) {
-                    var url = urls[i];
-                    console.log(i);
-                    return function() {
-                        var urlBuffer = _this.urlBuffer;
-            
-                        if(urlBuffer.indexOf(url) !== -1) {
-                            flag = true;
-                            return;
-                        } 
-                        urlBuffer.push(url);
-                        // 图片预加载
-                        var img = new Image();  
-                        img.onload = function(){
-                            $picCon.append(`<figure style="display:none"><img src=${url}></figure>`);
-                            $picCon.find("img").addClass("hvr-grow");
-                            $picCon.find("figure").fadeIn(1000);
-                        };  
-                        img.onerror = function(err){
-                            console.log(err);
-                        }; 
-                        img.src = url;
-                    }
-                    
+                // let 使得异步事件依次进行
+                for(let i=0; i<urls.length; i++) {
+                    let url = urls[i];
+                    if(_this.urlBuffer.indexOf(url) != -1) {
+                        flag = true;
+                        break;
+                    } 
+                    _this.urlBuffer.push(url);
+                    // 图片预加载
+                    let img = new Image();  
+                    img.onload = setTimeout(() => {
+                        $picCon.append(`<figure style="display:none"><img src=${url}></figure>`);
+                        $picCon.find("img").addClass("hvr-grow");
+                        $picCon.find("figure").fadeIn(1000);
+                    }, i*200); 
+                    img.onerror = function(err){
+                        console.log(err);
+                    }; 
+                    img.src = url;
                 }
+
+                flag ? $("#more").hide() : null;
             },
 
             error : function(e){
