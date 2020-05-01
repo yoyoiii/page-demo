@@ -57,7 +57,9 @@ var controller = {
         $.get({
             type: "GET",
             contentType: "application/json;charset=UTF-8",
-            url: "http://localhost:8888/pic" + key,
+            // url: "https://localhost:8888/pic" + key,
+            // url: "https://"+ location.hostname + ":8888/pic" + key,
+            url: "127.0.0.1:8888/pic" + key,
 
             success: function(data) {
                 var flag = false;
