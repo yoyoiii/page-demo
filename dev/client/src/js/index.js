@@ -75,7 +75,7 @@ var controller = {
                     img.onload = setTimeout(() => {
                         $picCon.append(`<figure style="display:none"><img src=${url}></figure>`);
                         $picCon.find("img").addClass("hvr-grow");
-                        $picCon.find("figure").fadeIn(1000);
+                        $picCon.find("figure").fadeIn(500);
                     }, i*200); 
                     img.onerror = function(err){
                         console.log(err);

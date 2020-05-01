@@ -47,7 +47,6 @@ app.get('/pic', function (req, res) {
             }
             
             if (respInfo.statusCode == 200) {
-                console.log("successful!");
                 
                 //若文件列表未列举完，下次调用listPrefix的时候，指定options里面的marker为respBody.marker
                 //若列表列举完毕，则循环列举
@@ -71,7 +70,9 @@ app.get('/pic', function (req, res) {
     
 })
 
-app.listen(8888);
+app.listen(8888, function(){
+    console.log("listening(port:8888)...")
+});
 
     
    
@@ -79,13 +80,3 @@ app.listen(8888);
     
   
     
-
-
-/* 
-var publicBucketDomain = 'http://qiniu.yoyoiii.top';
-
-// 公开空间访问链接
-var publicDownloadUrl = bucketManager.publicDownloadUrl(publicBucketDomain, key);
-console.log(publicDownloadUrl);
-
- */
